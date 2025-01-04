@@ -15,7 +15,7 @@ export default function Table({ products }) {
             <tbody>
                 {products.map((product) => {
                     return (
-                        <tr className="border-b hover:bg-gray-100 transition-all duration-300">
+                        <tr key={product.id} className="border-b hover:bg-gray-100 transition-all duration-300">
                             <td className="py-2">{product.id}</td>
                             <td className="py-2">{product.name}</td>
                             <td className="py-2">R$ {product.price},00</td>
