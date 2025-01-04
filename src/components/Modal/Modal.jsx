@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { PlusCircle } from 'phosphor-react'
+import Input from '../Input/Input'
 
-export default function Modal() {
+export default function Modal({ open, setOpen}) {
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -28,14 +27,8 @@ export default function Modal() {
                   Novo produto
                 </DialogTitle>
                 <div className="mt-2">
-                  <div className="flex flex-col">
-                    <label htmlFor="">Nome do produto</label>
-                    <input type="text" className='border border-[#118DC0] px-4 py-2 rounded outline-none' />
-                  </div>
-                  <div className="flex flex-col">
-                    <label htmlFor="">Preço</label>
-                    <input type="text" className='border border-[#118DC0] px-4 py-2 rounded outline-none' />
-                  </div>
+                  <Input title="Nome do produto" id="name" />
+                  <Input title="Preço" id="price" />
                 </div>
               </div>
             </div>
