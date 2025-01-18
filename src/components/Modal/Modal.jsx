@@ -1,10 +1,34 @@
-'use client'
+"use client";
 
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { PlusCircle } from 'phosphor-react'
-import Input from '../Input/Input'
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { PlusCircle } from "phosphor-react";
+import Input from "../Input/Input";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Modal({ open, setOpen}) {
+export default function Modal({ open, setOpen }) {
+  const navigate = useNavigate();
+
+  const [product, setProduct] = useState({});
+
+  function handleChange(event) {
+    setProduct({
+      ...product,
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  async function handleCreateNewProduct() {
+    await axios.post("http://localhost:3000/products", product);
+    navigate(0);
+  }
+
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
       <DialogBackdrop
@@ -20,22 +44,33 @@ export default function Modal({ open, setOpen}) {
           >
             <div className="sm:flex sm:items-start">
               <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                <PlusCircle size={32} className='text-red-800' />
+                <PlusCircle size={32} className="text-red-800" />
               </div>
               <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
+                <DialogTitle
+                  as="h3"
+                  className="text-base font-semibold text-gray-900"
+                >
                   Novo produto
                 </DialogTitle>
                 <div className="mt-2">
-                  <Input title="Nome do produto" id="name" />
-                  <Input title="Preço" id="price" />
+                  <Input
+                    title="Nome do produto"
+                    id="name"
+                    onChange={(event) => handleChange(event)}
+                  />
+                  <Input
+                    title="Preço"
+                    id="price"
+                    onChange={(event) => handleChange(event)}
+                  />
                 </div>
               </div>
             </div>
             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={handleCreateNewProduct}
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
               >
                 Salvar
@@ -53,5 +88,5 @@ export default function Modal({ open, setOpen}) {
         </div>
       </div>
     </Dialog>
-  )
+  );
 }
