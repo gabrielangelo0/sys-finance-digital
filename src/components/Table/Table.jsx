@@ -2,7 +2,7 @@ import { NotePencil, TrashSimple } from "phosphor-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Table({ products }) {
+export default function Table({ products, openModalUpdate }) {
   const navigate = useNavigate();
 
   async function handleDelete(id) {
@@ -33,6 +33,7 @@ export default function Table({ products }) {
               <td>
                 <div className="flex gap-2 items-center justify-center py-2">
                   <div
+                    onClick={() => openModalUpdate(product)}
                     className="bg-[#118DC0] rounded p-2 text-white
                                 cursor-pointer hover:bg-[#426b7b] transition-all
                                 duration-300"

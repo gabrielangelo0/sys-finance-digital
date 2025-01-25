@@ -2,13 +2,13 @@
   "products": [
     {
       "id": "fefd",
-      "name": "Cadeira",
+      "name": "CadeiraS",
       "price": "800"
     },
     {
       "id": "6fe1",
-      "name": "Caixa de Som",
-      "price": "200"
+      "name": "JBL",
+      "price": "20000"
     }
   ]
 }

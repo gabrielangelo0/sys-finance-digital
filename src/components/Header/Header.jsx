@@ -1,8 +1,12 @@
 import { Plus } from "phosphor-react";
 
-export default function Header({ open, setOpen }) {
+export default function Header({ setOpen, setSearchInput }) {
   function handleOpenModal() {
     setOpen(true);
+  }
+
+  function handleChangeSearch(event) {
+    setSearchInput(event.target.value);
   }
 
   return (
@@ -13,6 +17,7 @@ export default function Header({ open, setOpen }) {
       <div className="space-x-4 flex">
         <input
           type="text"
+          onChange={handleChangeSearch}
           placeholder="Pesquisar"
           className="border border-[#118DC0] px-6 py-1 rounded
                         placeholder:text-[#118DC0]"
