@@ -1,6 +1,14 @@
 {
-    "products": [
-      { "id": "1", "name": "Mouse", "price": 20 },
-      { "id": "2", "name": "Teclado", "price": 50 }
-    ]
-  }
+  "products": [
+    {
+      "id": "fefd",
+      "name": "CadeiraS",
+      "price": "800"
+    },
+    {
+      "id": "6fe1",
+      "name": "JBL",
+      "price": "20000"
+    }
+  ]
+}

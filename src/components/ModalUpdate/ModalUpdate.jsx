@@ -12,21 +12,31 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Modal({ open, setOpen }) {
+export default function ModalUpdate({ open, setOpen, selectedProduct, setSelectedProduct }) {
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState({});
-
-  function handleChange(event) {
-    setProduct({
-      ...product,
-      [event.target.id]: event.target.value,
-    });
+  function handleChangeName(event) {
+    setSelectedProduct({
+      ...selectedProduct,
+      name: event.target.value,
+    })
   }
 
-  async function handleCreateNewProduct() {
-    await axios.post("http://localhost:3000/products", product);
-    navigate(0);
+  function handleChangePrice(event) {
+    setSelectedProduct({
+      ...selectedProduct,
+      price: event.target.value,
+    })
+  }
+
+  async function handleUpdateProduct() {
+    try {
+      await axios.put(`http://localhost:3000/products/${selectedProduct.id}`, selectedProduct);
+
+      navigate(0);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -51,18 +61,20 @@ export default function Modal({ open, setOpen }) {
                   as="h3"
                   className="text-base font-semibold text-gray-900"
                 >
-                  Novo produto
+                  Editar produto
                 </DialogTitle>
                 <div className="mt-2">
                   <Input
                     title="Nome do produto"
                     id="name"
-                    onChange={(event) => handleChange(event)}
+                    value={selectedProduct?.name}
+                    onChange={(event) => handleChangeName(event)}
                   />
                   <Input
                     title="Preço"
                     id="price"
-                    onChange={(event) => handleChange(event)}
+                    value={selectedProduct?.price}
+                    onChange={(event) => handleChangePrice(event)}
                   />
                 </div>
               </div>
@@ -70,7 +82,7 @@ export default function Modal({ open, setOpen }) {
             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
               <button
                 type="button"
-                onClick={handleCreateNewProduct}
+                onClick={handleUpdateProduct}
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
               >
                 Salvar
